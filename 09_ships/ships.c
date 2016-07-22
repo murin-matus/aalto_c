@@ -13,7 +13,8 @@ const unsigned int shiplen = 3;
 void set_ships(unsigned int num)
 {
     unsigned int i = 0;
-    while(i < num) {
+    while(i < num) 
+    {
         int position_x, position_y;
     
         // determine ships position
@@ -22,9 +23,10 @@ void set_ships(unsigned int num)
 
         int direction = (position_x + position_y) % 2;
 
-        // dont count ship until placed correctly
+        // correctly placed ship returns 1
         int place_result = place_ship(position_x, position_y, direction);
-        if(place_result == 1) {
+        if(place_result == 1)
+        {
             i++;
         }
     }
@@ -35,14 +37,18 @@ void set_ships(unsigned int num)
  */
 void print_field(void)
 {
-    for(unsigned int row = 0; row < ysize; row++) {
-        for(unsigned int column = 0; column < xsize; column++) {
+    for(unsigned int row = 0; row < ysize; row++) 
+    {
+        for(unsigned int column = 0; column < xsize; column++) 
+        {
             // check if point is visible to user
             int visible = is_visible(column, row);
-            if(visible == 0) {
+            if(visible == 0) 
+            {
                 printf("?");
             }
-            else {
+            else 
+            {
                 // get point`s character ('.', '+', '#')
                 char point = is_ship(column, row);
                 printf("%c", point);
