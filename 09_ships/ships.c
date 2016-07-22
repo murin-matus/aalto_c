@@ -66,7 +66,30 @@ void print_field(void)
  */
 int shoot(void)
 {
-    return -1;  // replace this
+    unsigned int position_x, position_y;
+
+    // read positions from user
+    scanf("%u %u", &position_x, &position_y);
+
+    // check if position is in game field
+    if(position_x > 9 || position_y > 9) 
+    {
+        return -1;
+    }
+    
+    // mark location visible
+    checked(position_x, position_y);
+    
+    // check if location is ship
+    char point = is_ship(position_x, position_y);
+    if(point == '#' || point == '+')
+    {
+        hit_ship(position_x, position_y);
+        return 1;
+    }
+
+    // location is not ship
+    return 0;
 }
 
 /* Task d: Returns 1 if game is over (all ships are sunk), or 0 if there
