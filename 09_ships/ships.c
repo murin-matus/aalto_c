@@ -6,6 +6,8 @@ const unsigned int xsize = 10;
 const unsigned int ysize = 10;
 const unsigned int shiplen = 3;
 
+unsigned int ship_count = 0;
+
 /* implement these functions */
 
 /* Task a: Place <num> ships on the game map.
@@ -16,7 +18,7 @@ void set_ships(unsigned int num)
     while(i < num) 
     {
         int position_x, position_y;
-    
+
         // determine ships position
         position_x = rand() % 10;
         position_y = rand() % 10;
@@ -41,18 +43,8 @@ void print_field(void)
     {
         for(unsigned int column = 0; column < xsize; column++) 
         {
-            // check if point is visible to user
-            int visible = is_visible(column, row);
-            if(visible == 0) 
-            {
-                printf("?");
-            }
-            else 
-            {
-                // get point`s character ('.', '+', '#')
-                char point = is_ship(column, row);
-                printf("%c", point);
-            }
+            char point = field_content(column, row);
+            printf("%c", point);
         }
         // add new line
         printf("\n");
@@ -76,20 +68,19 @@ int shoot(void)
     {
         return -1;
     }
-    
+
     // mark location visible
     checked(position_x, position_y);
-    
+
     // check if location is ship
-    char point = is_ship(position_x, position_y);
-    if(point == '#' || point == '+')
+    int is_ship = is_point_ship(position_x, position_y);
+    if(is_ship == 1)
     {
         hit_ship(position_x, position_y);
-        return 1;
     }
 
     // location is not ship
-    return 0;
+    return is_ship;
 }
 
 /* Task d: Returns 1 if game is over (all ships are sunk), or 0 if there
@@ -99,6 +90,52 @@ int shoot(void)
  */
 int game_over(unsigned int num)
 {
-    (void) num;
-    return 0;  // replace this
+    // count of all fields with ships
+    unsigned int const ship_points_count = num * 3;
+
+    // calculated value of visible ship`s fields
+    unsigned int count = 0;
+    for(unsigned int row  = 0; row < xsize; row++)
+    {
+        for(unsigned int column = 0; column < ysize; column++)
+        {
+            // check if 
+            int is_ship = is_point_ship(row, column);
+            if(is_ship == 1)
+            {
+                count++;
+            }
+        }
+    }
+
+    return count == ship_points_count ? 1 : 0;
+}
+
+int is_point_ship(unsigned int x, unsigned int y)
+{
+    // check if field content is ship
+    char point = field_content(x, y);
+    if(point == '#' || point == '+')
+    {
+        return 1;
+    }
+
+    // point is not ship
+    return 0;
+}
+
+char field_content(unsigned int x, unsigned int y)
+{
+    // check if point is visible to user
+    int visible = is_visible(x, y);
+    if(visible == 0) 
+    {
+        // user cant see point`s content
+        return '?';
+    }
+    else 
+    {
+        // get point`s character ('.', '+', '#')
+        return is_ship(x, y);
+    }
 }

@@ -20,3 +20,5 @@ void set_ships(unsigned int num);
 void print_field(void);
 int shoot(void);
 int game_over(unsigned int num);
+int is_point_ship(unsigned int x, unsigned int y);
+char field_content(unsigned int x, unsigned int y);
