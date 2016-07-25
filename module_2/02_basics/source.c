@@ -18,11 +18,14 @@ void number_swap(int *a, int *b)
  */
 int array_sum(int *array, int count)
 {
+    // sum of array`s values
     int sum = 0;
     for(int i = 0; i < count; i++)
     {
+        // add i-th to sum
         sum += *(array + i);
     }
+
     return sum;
 }
 
@@ -33,7 +36,23 @@ int array_sum(int *array, int count)
  * returns: number of values read */
 int array_reader(int *vals, int n)
 {
-    (void) vals;
-    (void) n;
-    return 0;  // placeholder, replace with actual code
+    // entered numbers count
+    int count = 0;
+    while(count < n)
+    {
+        // read user`s input
+        int is_number = scanf("%d", vals);
+        if(is_number == 1)
+        {
+            count++;
+            vals++;
+            
+            // get another number
+            continue;
+        }
+
+        // exit loop
+        break;
+    }
+    return count;
 }
