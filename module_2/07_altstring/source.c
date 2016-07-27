@@ -59,7 +59,24 @@ int es_copy(char *dst, const char *src)
  *          NULL if end of string reached */
 char *es_token(char *s, char c)
 {
-    (void) s;
-    (void) c;
-    return NULL; // replace this
+    // get number of chars before first sharp
+    int length = es_length(s);
+    for (int i = 0; i < length; i++)
+    {
+        // get pointer to current character
+        char *current = s + i;
+
+        // check if current character equals entered value
+        if (*current == c)
+        {
+            // replace desired character with sharp
+            *current = '#';
+
+            // returns pointer to character next to replaced
+            return current + 1;
+        }
+    }
+
+    // if character wasn`t found return NULL
+    return NULL;
 }
