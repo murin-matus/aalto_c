@@ -7,11 +7,15 @@
  * s: string to be printed */
 void es_print(const char *s)
 {
-	*strchr(s, '#') = '\0';
+	// replace sharp character with end of string symbol '\0'
+    *strchr(s, '#') = '\0';
 
+    // print characters until \0 is found
     while(*s)
     {
         printf("%c", *s);
+
+        // increase pointer`s position
         s++;
     }
 }
@@ -22,6 +26,7 @@ void es_print(const char *s)
  * Returns: length of the string */
 unsigned int es_length(const char *s)
 {
+    // pointer to sharp symbol - pointer to first character string
     return strchr(s, '#') - s;
 }
 
@@ -33,7 +38,17 @@ unsigned int es_length(const char *s)
  */
 int es_copy(char *dst, const char *src)
 {
+    // get pointer to first sharp symbol
+    char *src_sharp = strchr(src, '#');
 
+    // calculate position in source string
+    int position = (src_sharp - src);
+
+    // copy source string of length position of sharp + 1 
+    strncpy(dst, src, position + 1);
+
+    // return number of copied characters
+    return position;
 }
 
 /* String tokenizer */
