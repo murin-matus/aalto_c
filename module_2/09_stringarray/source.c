@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stddef.h>
 #include "source.h"
 
 
@@ -31,5 +33,27 @@ void print_strarray(char *array[])
  * arr: ready-made array that the strings will be put into */
 void str_to_strarray(char* string, char** arr)
 {
-    (void) string; (void) arr;
+    int i, j;
+    i = 0;
+    j = 0;
+    do
+    {
+        if (*string == ' ')
+        {
+            arr[i][j] = '\0';
+            j = 0;
+            i++;
+        }
+        else
+        {
+            arr[i][j] = *string;
+            j++;
+        }
+        string++;
+    }
+    while (*string);
+
+    arr[i][j] = '\0';
+    i++;
+    arr[i] = NULL;
 }
