@@ -8,7 +8,7 @@ void korsoroi(char *dest, const char *src)
 {
     // space counter
     int space = 0;
-    while(*src)
+    while (*src)
     {
         if (*src == 'k' && *(src + 1) == 's')
         {
@@ -53,8 +53,9 @@ void korsoroi(char *dest, const char *src)
             }
             else if (space % 4 == 0)
             {
-                // replace every fourth space
                 char *fourth_space = " totanoin ";
+
+                // replace every fourth space
                 for (int i = 0; i < strlen(fourth_space); i++)
                 {
                     *dest = *(fourth_space + i);
