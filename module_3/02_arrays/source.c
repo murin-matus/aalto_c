@@ -13,6 +13,11 @@ int *dyn_reader(unsigned int n)
     // initialize array of size n
     int *array = malloc(n * sizeof(int));
 
+    // check memory allocation
+    if (array == NULL) {
+        return NULL;
+    }
+
     // let user to fill array
     for (unsigned int i = 0; i < n; i++) {
         scanf("%d", &array[i]);
@@ -34,6 +39,10 @@ int *add_to_array(int *arr, unsigned int num, int newval)
 {
     // reallocate array with size num + 1
     int *newarr = realloc(arr, (num + 1) * sizeof(int));
+
+    if (newarr == NULL) {
+        return NULL;
+    }
 
     // set last element of array to newval
     newarr[num] = newval;
